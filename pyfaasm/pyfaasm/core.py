@@ -188,6 +188,59 @@ def await_call(call_id):
         return _host_interface.__faasm_await_call(call_id)
 
 
+def storage_chain_await(func):
+    if is_local_chaining():
+        # Run function directly
+        func()
+        return 0
+    else:
+        # Call into host interface
+        _init_host_interface()
+
+        func_name = func.__name__
+        result = _host_interface.__faasmndp_storageCallAndAwait_py(
+            bytes(func_name, "utf-8")
+        )
+        if result == -0x12345678:
+            func()
+            return 0
+        return result
+
+
+def ndp_get(key, maxLen):
+    _init_host_interface()
+
+    outLen = ctypes.c_int32(0)
+
+    _host_interface.__faasmndp_getMmap.restype = ctypes.c_void_p
+    result = _host_interface.__faasmndp_getMmap(
+        bytes(key, "utf-8"),
+        int(len(key)),
+        min(int(maxLen), 4294967295),
+        ctypes.byref(outLen)
+    )
+    if result is None or result.value == 0:
+        return None
+    else:
+        return ctypes.string_at(result, outLen.value)
+
+
+def ndp_put(key, data):
+    _init_host_interface()
+
+    key = bytes(key, "utf-8")
+    if type(data) != bytes:
+        data = bytes(str(data), "utf-8")
+
+    _host_interface.__faasmndp_put.restype = ctypes.c_int32
+    return _host_interface.__faasmndp_put(
+        key,
+        int(len(key)),
+        data,
+        int(len(data)),
+    )
+
+
 def set_emulator_message(message_json):
     _init_host_interface()
 
