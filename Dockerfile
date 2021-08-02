@@ -1,4 +1,4 @@
-FROM kubasz51/faasm-cpp-sysroot:0.0.26
+FROM kubasz51/faasm-cpp-root:0.0.26
 ARG FAASM_PYTHON_VERSION
 
 RUN apt install -y \
@@ -20,7 +20,7 @@ RUN pip3 install -r test_requirements.txt
 WORKDIR /code
 RUN git clone \
     -b v${FAASM_PYTHON_VERSION} \
-    https://github.com/auto-ndp/faasm-python
+    https://github.com/auto-ndp/faasm-python python
 
 # Submodules
 WORKDIR /code/python
