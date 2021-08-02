@@ -1,4 +1,4 @@
-FROM kubasz51/faasm-cpp-root:0.0.26
+FROM kubasz51/faasm-cpp-sysroot:0.0.26
 ARG FAASM_PYTHON_VERSION
 
 RUN apt install -y \
