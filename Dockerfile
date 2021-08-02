@@ -3,6 +3,7 @@ ARG FAASM_PYTHON_VERSION
 
 RUN apt install -y \
     libssl-dev \
+    libcurl4-openssl-dev \
     ninja-build
 
 # Hack to avoid rebuilding build CPython every time the code changes
