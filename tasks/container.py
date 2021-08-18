@@ -11,7 +11,7 @@ from tasks.env import (
     get_version,
 )
 
-CONTAINER_IMAGE = "faasm/cpython"
+CONTAINER_IMAGE = "kubasz51/faasm-cpython"
 DOCKERFILE = join(PROJ_ROOT, "Dockerfile")
 
 
