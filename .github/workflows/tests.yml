@@ -12,15 +12,19 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-20.04
     container:
-      image: faasm/cpython:0.0.11
+      image: faasm/cpython:0.0.12
     defaults:
       run:
         working-directory: /code/python
     steps:
+      - name: "Fetch all"
+        run: git fetch --all
       - name: "Fetch ref"
         run: git fetch origin ${GITHUB_REF}:ci-branch
       - name: "Check out branch"
         run: git checkout --force ci-branch
+      - name: "Update cpp submodule"
+        run: git submodule update third-party/cpp
       - name: "Install base requirements"
         run: pip3 install -r requirements.txt
       - name: "Install pyfaasm requirements"
@@ -40,7 +44,7 @@ jobs:
       REDIS_QUEUE_HOST: redis
       REDIS_STATE_HOST: redis
     container:
-      image: faasm/cpython:0.0.11
+      image: faasm/cpython:0.0.12
     defaults:
       run:
         working-directory: /code/python
@@ -48,6 +52,8 @@ jobs:
       redis:
         image: redis
     steps:
+      - name: "Fetch all"
+        run: git fetch --all
       - name: "Fetch ref"
         run: git fetch origin ${GITHUB_REF}:ci-branch
       - name: "Check out branch"
