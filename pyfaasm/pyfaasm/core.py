@@ -8,7 +8,7 @@ import ctypes
 # https://github.com/faasm/faasm/blob/master/include/faasm/host_interface.h
 
 NATIVE_SUPPORTING_LIBS = [
-    "libpistache.so",
+    "libpistache-0.0.002-git20210107.so",
     "libfaabricmpi.so",
 ]
 
