@@ -1,3 +1,4 @@
 black
 invoke
 numpy
+requests
