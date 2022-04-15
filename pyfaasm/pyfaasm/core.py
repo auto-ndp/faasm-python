@@ -5,7 +5,7 @@ import ctypes
 # https://docs.python.org/3/library/ctypes.html
 #
 # Faasm host interface:
-# https://github.com/faasm/faasm/blob/master/include/faasm/host_interface.h
+# https://github.com/faasm/cpp/blob/main/libfaasm/faasm/host_interface.h
 
 NATIVE_SUPPORTING_LIBS = [
     "libpistache-0.0.002-git20210107.so",
